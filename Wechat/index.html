@@ -1,0 +1,188 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>程汉艳的博客</title>
+   <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script scr="../Public/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../Public/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../Public/css/index.css" />
+    <link rel="stylesheet" type="text/css" href="../Public/css/index.css" />
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="__PUBLIC__/js/html5shiv.min.js"></script>
+      <script src="__PUBLIC__/js/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+        <header class="container-fluid">
+                <div class="container">
+                    <div class="col-md-8 col-xs-12 col-sm-8 title">
+                        <h1>PHP</h1>
+                    </div>
+                </div>
+        </header>
+
+
+        <nav class="navbar navbar-default">
+          <div class="container-fluid" id="nav">
+            <div class="row">
+                <div class="container">
+                    <div class="col-md-12 col-xs-12 col-sm-12">
+                            <!-- Brand and toggle get grouped for better mobile display -->
+                            <div class="navbar-header">
+                              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navHidden" aria-expanded="false">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                              </button>
+                            
+                            </div>
+
+                            <!-- Collect the nav links, forms, and other content for toggling -->
+                            <div class="collapse navbar-collapse" id="navHidden">
+
+                              <ul class="nav navbar-nav">
+                                <li class="active">
+                                    <a href="../index.html">首页 <span class="sr-only">(current)</span></a></li>
+                                <li><a href="#">PHP</a></li>
+                    <li><a href="../Wechat/index.html">微信开发</a></li>
+                    <li><a href="#">Linux</a></li>
+                                <li><a href="#">Git</a></li>
+                                <li><a href="#">JavaScript</a></li>
+                                <li><a href="#">Node.JS</a></li>
+                    <li><a href="#">工具</a></li>
+                              
+                              </ul>
+
+                            </div><!-- /.navbar-collapse -->
+                      </div><!-- /.container-fluid -->
+                    </div>
+                </div>
+            </div>
+           
+        </nav>
+
+        <!--主体部分-->
+        <section class="container-fluid">
+            <div class="container">
+
+                <div class="col-md-8 mainLeft">
+
+                    <article class="post">
+                        <div class="title-div">
+                            <h2>
+                                PHP安全-隐藏PHP
+                            </h2>
+                            <div>
+                                作者：程汉艳 • 2016年7月15日
+                            </div>
+                        </div>
+
+                        <div class="post-content">
+                        
+                            <?php
+    
+    /**
+     * POST请求
+     * @param  string $url  请求的地址
+     * @param  array  $data 要传的参数
+     * @return array       请求到的结果
+     */
+    function post($url, $data = array()){
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);    //以结果的方式返回你请求到的数据
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        $res = curl_exec($ch);
+        curl_close();
+
+        return json_decode($res, true);
+    }
+
+
+    /**
+     * get请求
+     * @param  string $url 请求的地址
+     * @return array      请求到的结果
+     */
+    function get($url){
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);    //以结果的方式返回你请求到的数据
+        $res = curl_exec($ch);
+        curl_close();
+
+        $arr = json_decode($res, true);
+        return $arr;   
+    }
+
+    function token(){
+        if(file_exists('./token.txt') && (filemtime('./token.txt') + 7000) > time()){
+            return file_get_contents('./token.txt');
+        }else{
+            //获取access_token的接口地址，get
+            $url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx158f53e91673d425&secret=08521cc67f78f65a3e6438d0a723804f';
+
+            $res = get($url);
+            file_put_contents('./token.txt', $res['access_token']);
+            return $res['access_token'];
+        }
+
+    }
+                        </div>
+
+                    </article>
+                    
+                
+                </div>
+                <aside class="col-md-3 hidden-sm hidden-xs mainRight ">
+                    <div class="widget">
+                        <div class="aside">
+                            <h4>近期文章</h4>
+                        </div>
+                        <div class="content">
+                            <p>
+                                <a href="#">
+                                    搭建Git服务器
+                                </a>
+                                
+                            </p>
+                            <p>
+                                <a href="">
+                                    从HTTP协议角度看GET与POST请求的区别
+                                </a>
+                                
+                            </p>
+                        </div>
+                    </div>
+
+
+                </aside>
+
+
+            </div>
+
+
+
+        </section>
+               <nav class="pagination" role="navigation">
+
+              <span class="page-number">第 1 页 ⁄ 共 2 页</span>
+              <a class="newer-posts" href="./safe1.html">
+                <i class="fa fa-angle-left">&gt;</i>
+              </a>
+            </nav>   
+   
+    <script src="../Public/js/jquery.js"></script>
+  
+    <script src="../Public/bootstrap/js/bootstrap.min.js"></script>
+  </body>
+</html>
+
