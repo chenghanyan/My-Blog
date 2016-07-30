@@ -87,7 +87,7 @@
                         </div>
 
                         <div class="post-content">
-                       <?php
+                <p>       <?php
     
     /**
      * POST请求
@@ -105,8 +105,8 @@
 
         return json_decode($res, true);
     }
-
-
+</p>
+<p>
     /**
      * get请求
      * @param  string $url 请求的地址
@@ -122,7 +122,7 @@
         $arr = json_decode($res, true);
         return $arr;   
     }
-
+</p><p>
     function token(){
         if(file_exists('./token.txt') && (filemtime('./token.txt') + 7000) > time()){
             return file_get_contents('./token.txt');
@@ -135,7 +135,7 @@
             return $res['access_token'];
         }
 
-    }
+    }</p>
                         </div>
 
                     </article>
