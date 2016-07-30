@@ -87,55 +87,55 @@
                         </div>
 
                         <div class="post-content">
-                <p>       <?php
+                   <p> <?php</p>
     
-    /**
-     * POST请求
-     * @param  string $url  请求的地址
-     * @param  array  $data 要传的参数
-     * @return array       请求到的结果
-     */
-    function post($url, $data = array()){
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);    //以结果的方式返回你请求到的数据
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-        $res = curl_exec($ch);
-        curl_close();
+    <p>/**</p>
+     <p>* POST请求</p>
+     <p>* @param  string $url  请求的地址</p>
+     <p>* @param  array  $data 要传的参数</p>
+     <p>* @return array       请求到的结果</p>
+     <p>*/</p>
+    <p>function post($url, $data = array()){</p>
+       <p> $ch = curl_init($url);</p>
+        <p>curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);    //以结果的方式返回你请求到的数据</p>
+        <p>curl_setopt($ch, CURLOPT_POST, 1);</p>
+        <p>curl_setopt($ch, CURLOPT_POSTFIELDS, $data);</p>
+        <p>$res = curl_exec($ch);</p>
+       <p>curl_close();</p>
 
-        return json_decode($res, true);
-    }
-</p>
+       <p> return json_decode($res, true);</p>
+    <p>}</p>
+
 <p>
-    /**
-     * get请求
-     * @param  string $url 请求的地址
-     * @return array      请求到的结果
-     */
-    function get($url){
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);    //以结果的方式返回你请求到的数据
-        $res = curl_exec($ch);
-        curl_close();
+   <p> /**</p>
+   <p>  * get请求</p>
+    <p> * @param  string $url 请求的地址</p>
+    <p> * @return array      请求到的结果</p>
+    <p> */</p>
+   <p> function get($url){</p>
+       <p> $ch = curl_init();</p>
+       <p> curl_setopt($ch, CURLOPT_URL, $url);</p>
+       <p> curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);    //以结果的方式返回你请求到的数据</p>
+        <p>$res = curl_exec($ch);</p>
+        <p>curl_close();</p>
 
-        $arr = json_decode($res, true);
-        return $arr;   
+        <p>$arr = json_decode($res, true);</p>
+        <p>return $arr;   </p>
+    <p>}</p>
+</p>
+    <p>function token(){
+        <p>if(file_exists('./token.txt') && (filemtime('./token.txt') + 7000) > time()){</p>
+            <p>return file_get_contents('./token.txt');</p>
+        <p>}else{</p>
+           <p> //获取access_token的接口地址，get</p>
+           <p> $url = 'https://api.weixin.qq.com/cgi-bin/</p>token?grant_type=client_credential&appid=wx158f53e91673d425&secret=08521cc67f78f65a3e6438d0a723804f';</p>
+
+           <p> $res = get($url);</p>
+            <p>file_put_contents('./token.txt', $res['access_token']);</p>
+           <p> return $res['access_token'];</p>
+        <p>}</p>
+
     }
-</p><p>
-    function token(){
-        if(file_exists('./token.txt') && (filemtime('./token.txt') + 7000) > time()){
-            return file_get_contents('./token.txt');
-        }else{
-            //获取access_token的接口地址，get
-            $url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx158f53e91673d425&secret=08521cc67f78f65a3e6438d0a723804f';
-
-            $res = get($url);
-            file_put_contents('./token.txt', $res['access_token']);
-            return $res['access_token'];
-        }
-
-    }</p>
                         </div>
 
                     </article>
